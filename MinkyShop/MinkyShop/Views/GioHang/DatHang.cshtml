@@ -1,0 +1,162 @@
+﻿@using MinkyShop.Models
+@model List<Giohang>
+@{
+    ViewData["Title"] = "DatHang";
+    Layout = "_Layout.cshtml";
+    var session = Context.Session;
+    Dondathang ddh = new Dondathang();
+    Khachhang kh = (Khachhang)session.Get<Khachhang>("Taikhoan");
+}
+
+<div class="checkout-area pb-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="billing-info-wrap">
+                    <h3>Billing Details</h3>
+                    <div class="row">
+                        <table>
+                            <form method="post">
+                                <div class="col-lg-12">
+                                    <div class="billing-info mb-20px">
+                                        <label>Tên Người Nhận</label>
+                                        <input type="text" name="Tennguoinhan" placeholder="@kh.HoTen" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="billing-info mb-20px">
+                                        <label>Tình thành</label>
+                                        <select id="city" name="Tinhthanh" style="width: 200px; height: 34px;">
+                                            <option value="" selected>Chọn tỉnh thành</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="billing-info mb-20px">
+                                        <label>Quận huyện</label>
+                                        <select id="district" name="Quanhuyen" style="width: 200px; height: 34px;">
+                                            <option value="" selected>Chọn</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="billing-info mb-20px">
+                                        <label>Phường xã</label>
+                                        <select id="ward" name="Phuongxa" style="width: 200px; height: 34px;">
+                                            <option value="" selected>Chọn</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="billing-info mb-20px">
+                                        <label>Số nhà</label>
+                                        <input type="text" class="form-control" id="inputStreet" name="Sonha" placeholder="VD: 123 Võ Văn Hát" required style="width: 200px; height: 34px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20px">
+                                        <label>Phone</label>
+                                        <input type="text" name="Dienthoai" placeholder="VD: 0123456789" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20px">
+                                        <label>Email Address</label>
+                                        <input disabled type="text" placeholder="@kh.Email" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20px">
+                                        <label>Ngày đặt</label>
+                                        <input disabled type="text" placeholder="@DateTime.Now.ToShortDateString()" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="billing-info mb-20px">
+                                        <label>Ngày giao</label>
+                                        <input type="date" name="Ngaygiao" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                    </div>
+                                </div>
+                                <div class="additional-info-wrap">
+                                    <div class="additional-info">
+                                        <label>Ghi chú</label>
+                                        <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="Ghichu"></textarea>
+                                    </div>
+                                </div>
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Voucher</li>
+                                        <input type="text" id="Mavoucher" name="Voucher" placeholder="Nhập mã voucher" />
+                                        <button id="ApplyVoucher">Áp dụng</button>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <input style="border:solid #000; padding:15px;" type="Submit" value="ĐỒNG Ý ĐẶT HÀNG" />
+                                </div>
+                            </form>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-md-30px mt-lm-30px ">
+                <div class="your-order-area">
+                    <h3>Your order</h3>
+                    <div class="your-order-wrap gray-bg-4">
+                        <div class="your-order-product-info">
+                            <div class="your-order-top">
+                                <ul>
+                                    <li>Product</li>
+                                    <li>Total</li>
+                                </ul>
+                            </div>
+                            <div class="your-order-middle">
+                                @foreach (var item in Model)
+                                {
+                                    using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSp = item.iMaSp }))
+                                    {
+                                        <ul>
+                                            <li><span class="order-middle-left">@item.sTenSp X @item.iSoluong</span> <span class="order-price">@String.Format("{0:0,0}", item.dDongia) </span></li>
+                                        </ul>
+                                    }
+                                }
+                            </div>
+                            <div class="your-order-bottom" style="display:none;">
+                                <ul>
+                                    <li class="your-order-shipping">Tên khuyến mãi</li>
+                                    <li id="TenVoucher"></li>
+                                    <li><span id="DiscountAmount">0</span> <span class="cancel-voucher" style="cursor:pointer;">X</span></li>
+                                </ul>
+                            </div>
+                            <div class="your-order-total">
+                                <ul>
+                                    <li class="order-total">TỔNG TIỀN</li>
+                                    <li id="NewTotalAmount">@String.Format("{0:0,0}", ViewBag.Tongtien)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="payment-method">
+                            <div class="payment-accordion element-mrg">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel payment-accordion">
+                                        <div class="panel-heading" id="method-three">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method3">
+                                                    Thanh Toán COD
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="method3" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

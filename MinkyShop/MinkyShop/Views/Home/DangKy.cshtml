@@ -1,0 +1,219 @@
+﻿@model MinkyShop.Models.Khachhang
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="dangky">
+    <h4 align="center">Đăng ký</h4>
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <table align="center">
+            <tr>
+                <td class="label">Họ Và Tên:</td>
+                <td class="input">
+                    <input asp-for="HoTen" required />
+                </td>
+                <td class="error">
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Tên đăng nhập:</td>
+                <td class="input">
+                    <input asp-for="Taikhoan" required />
+                </td>
+                <td class="error">
+                    <span asp-validation-for="Taikhoan" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Mật khẩu:</td>
+                <td class="input">
+                    <input asp-for="Matkhau" type="password" />
+                </td>
+                <td class="error">
+                    <span asp-validation-for="Matkhau" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Địa chỉ Email:</td>
+                <td class="input">
+                    <input asp-for="Email" type="email" />
+                </td>
+                <td class="error">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Ngày sinh:</td>
+                <td class="input">
+                    <input asp-for="Ngaysinh" type="date" />
+                </td>
+                <td class="error">
+                    <span asp-validation-for="Ngaysinh" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center">
+                    <input type="checkbox" id="agreeCheckbox" required />
+                    <label for="agreeCheckbox">Tôi đồng ý với <a href="#" id="showTermsLink">điều khoản sử dụng</a></label>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-lg btn-primary p-2">
+            <i class="bi bi-file-plus-fill"></i>
+            Đăng ký
+        </button>
+    </form>
+</div>
+<div id="termsPopup" class="terms-popup">
+    <div class="terms-content">
+        <span class="close" id="closeTermsPopup">&times;</span>
+        <div class="modal-body">
+            <p>
+                Chào mừng bạn đến với trang web bán điện thoại của chúng tôi. Trước khi bạn đăng ký tài khoản, vui
+                lòng đọc kỹ và hiểu rõ các điều khoản sau đây. Việc sử dụng dịch vụ của chúng tôi đồng nghĩa với
+                việc bạn đồng ý tuân thủ những quy định sau đây:
+            </p>
+            <p><strong>1. Tài Khoản Người Dùng:</strong></p>
+            <p>
+                1.1. Bạn cam kết cung cấp thông tin cá nhân chính xác, đầy đủ và cập nhật khi đăng ký tài khoản trên
+                trang web của chúng tôi.
+            </p>
+            <p>
+                1.2. Bạn có trách nhiệm bảo mật thông tin đăng nhập và không được chia sẻ tài khoản của mình với bất
+                kỳ ai khác. Chúng tôi không chịu trách nhiệm đối với việc sử dụng trái phép của tài khoản của
+                bạn.
+            </p>
+            <p>
+                1.3. Bạn phải thông báo ngay cho chúng tôi nếu có bất kỳ sự truy cập trái phép nào vào tài khoản của
+                bạn hoặc bất kỳ vi phạm bảo mật nào liên quan đến tài khoản của bạn.
+            <p><strong>2. Sử Dụng Dịch Vụ:</strong></p>
+            <p>
+                2.1. Bạn cam kết sử dụng trang web của chúng tôi chỉ cho các mục đích hợp pháp và tuân thủ tất cả các
+                quy định pháp luật hiện hành.
+            </p>
+            <p>
+                2.2. Bạn không được thực hiện bất kỳ hành động nào gây ảnh hưởng đến tính ổn định hoặc an toàn của hệ
+                thống trang web, hoặc làm trở ngại cho người khác sử dụng dịch vụ của chúng tôi.
+            </p>
+            <p>
+                2.3. Bất kỳ hành vi vi phạm bản quyền, thương hiệu, hoặc quyền sở hữu trí tuệ khác trên trang web của
+                chúng tôi là nghiêm cấm.
+            </p>
+            <p><strong>3. Quyền Riêng Tư:</strong></p>
+            <p>
+                3.1. Chúng tôi cam kết bảo vệ quyền riêng tư của bạn và tuân thủ chính sách bảo mật thông tin. Chi
+                tiết về cách chúng tôi thu thập, lưu trữ và sử dụng thông tin cá nhân của bạn được ghi trong Chính
+                Sách Bảo Mật của chúng tôi.
+            </p>
+            <p>
+                3.2. Bạn đồng ý rằng chúng tôi có thể sử dụng thông tin cá nhân của bạn để cung cấp dịch vụ và sản
+                phẩm, cũng như để liên hệ với bạn về các thông tin quan trọng.
+            </p>
+            <p><strong>4. Thay Đổi Điều Khoản:</strong></p>
+            <p>
+                Chúng tôi có quyền điều chỉnh, sửa đổi hoặc thay đổi các điều khoản trong tương lai. Bất kỳ thay đổi
+                nào sẽ được thông báo trước và bạn có trách nhiệm xem xét và đồng ý với các điều khoản mới.
+            </p>
+            <p><strong>5. Chấm Dứt Tài Khoản:</strong></p>
+            <p>
+                Chúng tôi có quyền chấm dứt hoặc đình chỉ tài khoản của bạn nếu bạn vi phạm các điều khoản trong tài
+                liệu này hoặc thực hiện hành vi gian lận, lừa đảo, hoặc bất hợp pháp khác.
+            </p>
+            <p><strong>6. Liên Hệ:</strong></p>
+            <p>
+                Nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào về các điều khoản này, vui lòng liên hệ với chúng tôi qua
+                thông tin liên hệ được cung cấp trên trang web.
+            </p>
+            <p>
+                Việc đăng ký tài khoản trên trang web của chúng tôi đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý
+                tuân thủ các điều khoản và điều kiện được nêu trên. Chúng tôi rất hoan nghênh sự tham gia của bạn và
+                chúc bạn có trải nghiệm mua sắm trực tuyến thú vị trên trang web của chúng tôi!
+            </p>
+        </div>
+        <div id="termsPopup" class="terms-popup">
+            <div class="terms-content">
+                <p>Đây là nội dung của điều khoản sử dụng.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .dangky {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    table {
+        margin: 0 auto;
+        width: 500px;
+    }
+
+    .label {
+        width: 150px;
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    .input {
+        width: 200px;
+    }
+
+    .error {
+        color: red;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"] {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .terms-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+        overflow: auto;
+    }
+
+    .terms-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    #agreeCheckbox:checked ~ table input[type="submit"] {
+        display: none;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    document.getElementById("showTermsLink").addEventListener("click", function () {
+        document.getElementById("termsPopup").style.display = "block";
+    });
+    document.getElementById("closeTermsPopup").addEventListener("click", function () {
+        document.getElementById("termsPopup").style.display = "none";
+    });
+</script>

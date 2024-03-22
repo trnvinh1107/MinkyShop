@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MinkyShop.Models.Nhacungcap>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    string search = ViewBag.Search;
+}
+
+<h2>QUẢN LÝ NHÀ CUNG CẤP</h2>
+
+<div class="search-bar">
+    <form asp-action="Search" asp-controller="NhaCungCap" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm thông tin bạn cần" name="search" value="@search">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<p>
+    <a asp-action="Themmoinhacungcap" class="btn btn-success">Thêm mới nhà cung cấp</a>
+</p>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Tên nhà cung cấp</th>
+            <th>Địa chỉ</th>
+            <th>Điện thoại</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ncc in Model)
+        {
+            <tr>
+                <td>@ncc.TenNcc</td>
+                <td>@ncc.Diachi</td>
+                <td>@ncc.DienThoai</td>
+                <td>
+                    <a asp-controller="NhaCungCap" asp-action="SuaNhacc" asp-route-id="@ncc.MaNcc" class="btn btn-primary">Sửa</a>
+                    <a asp-controller="NhaCungCap" asp-action="Details" asp-route-id="@ncc.MaNcc" class="btn btn-info">Chi tiết</a>
+                    <a asp-controller="NhaCungCap" asp-action="XoaNcc" asp-route-id="@ncc.MaNcc" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

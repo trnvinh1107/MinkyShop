@@ -1,0 +1,14 @@
+﻿@model IList<Danhmuc>
+@foreach (var i in Model)
+{
+    <li>
+        <ul>
+            <li class="mega-menu-title">
+                <a href="@Url.Action("SPDanhMuc","SanPham", new {id = i.MaDm })">
+                    @i.TenDanhMuc
+                </a>
+            </li>
+            @await Component.InvokeAsync("Loai",i.MaDm)
+        </ul>
+    </li>
+}

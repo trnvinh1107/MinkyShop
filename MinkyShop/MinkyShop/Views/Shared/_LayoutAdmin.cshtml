@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - My ASP.NET Core Application</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({ selector: 'textarea' });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TRANG CHỦ</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-controller="Nhacungcap" asp-action="Index">Quản lý Nhà Cung Cấp</a></li>
+                    <li><a asp-controller="Admin" asp-action="SanPham">Quản lý Sản Phẩm</a></li>
+                    <li><a asp-controller="AdminDanhMuc" asp-action="Index">Quản lý Danh mục</a></li>
+                    <li><a asp-controller="AdminLoai" asp-action="Index">Quản lý Loại</a></li>
+                    <li><a asp-controller="Admin" asp-action="HoaDon">Quản lý Hóa Đơn</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Nhóm 15</p>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

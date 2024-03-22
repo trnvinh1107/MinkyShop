@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MinkyShop.Models.Dondathang>
+@{
+    ViewData["Title"] = "LichSuMuaHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">LỊCH SỬ MUA HÀNG</h2>
+<div class="btn-group" role="group" aria-label="Chọn trạng thái">
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('all')">Tất cả</button>
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('Chưa giao hàng')">Chưa giao</button>
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('Đang giao hàng')">Đang giao</button>
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('Giao hàng thành công')">Giao thành công</button>
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('Giao hàng thất bại')">Giao thất bại</button>
+    <button type="button" class="btn btn-secondary" onclick="filterHistory('Đã hủy')">Đã hủy</button>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ngày đặt</th>
+            <th>Ngày giao</th>
+            <th>Tình trạng giao hàng</th>
+            <th>Ghi chú</th>
+            <th>Tổng giá</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@string.Format("{0:dd/MM/yyyy}", item.Ngaydat)</td>
+                <td>@string.Format("{0:dd/MM/yyyy}", item.Ngaygiao)</td>
+                <td>
+                    @if (item.Tinhtranggiaohang == "giao that bai")
+                    {
+                        <span class="text-danger">Giao hàng thất bại</span>
+                    }
+                    else if (item.Tinhtranggiaohang == "giao thanh cong")
+                    {
+                        <span class="text-success">Giao hàng thành công</span>
+                    }
+                    else if (item.Tinhtranggiaohang == "dang giao")
+                    {
+                        <span class="text-warning">Đang giao hàng</span>
+                    }
+                    else if (item.Tinhtranggiaohang == "chua giao")
+                    {
+                        <span class="text-warning">Chưa giao hàng</span>
+                    }
+                    else if (item.Tinhtranggiaohang == "da huy")
+                    {
+                        <span class="text-warning">Đã hủy</span>
+                    }
+                </td>
+                <td>@item.Ghichu</td>
+                <td>@item.TongGia</td>
+                <td>
+                    @if (item.Tinhtranggiaohang == "chua giao")
+                    {
+                        <a asp-controller="NguoiDung" asp-action="HuyDonHang" asp-route-id="@item.MaDonHang" class="btn btn-danger">Hủy Đơn</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary" disabled>Hủy Đơn</button>
+                    }
+                    <a asp-controller="NguoiDung" asp-action="ChiTietLichSu" asp-route-id="@item.MaDonHang" class="btn btn-primary">Chi Tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function filterHistory(status) {
+        $('.table tbody tr').hide();
+        if (status === 'all') {
+            $('.table tbody tr').show();
+        } else {
+            $('.table tbody tr').each(function () {
+                if ($(this).find('td:eq(2)').text().trim() === status) {
+                    $(this).show();
+                }
+            });
+        }
+    }
+</script>

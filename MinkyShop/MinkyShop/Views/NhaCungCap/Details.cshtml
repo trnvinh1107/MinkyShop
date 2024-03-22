@@ -1,0 +1,37 @@
+﻿@model MinkyShop.Models.Nhacungcap
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+}
+<h2>THÔNG TIN NHÀ CUNG CẤP</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên nhà cung cấp:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenNcc)
+        </dd>
+
+        <dt>
+            Địa chỉ:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+
+        <dt>
+            Điện thoại:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+    </dl>
+</div>
+<div>
+    <p>
+        <a asp-action="SuaNhacc" asp-route-id="@Model.MaNcc" class="btn btn-primary">Sửa</a>
+        <a asp-action="Index" class="btn btn-default">Trở về trang quản lý</a>
+    </p>
+</div>

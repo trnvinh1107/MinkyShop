@@ -1,0 +1,9 @@
+﻿@model IList<Nhacungcap>
+@foreach (var i in Model)
+{
+    <li class="mega-menu-title">
+        <a href="@Url.Action("TenNhaCungCap","Sanpham", new {id= i.MaNcc })">
+            @i.TenNcc
+        </a>
+    </li>
+}

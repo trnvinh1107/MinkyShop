@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "ChiTietLichSu";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="text-center">CHI TIẾT LỊCH SỬ</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Mã đơn hàng:</strong> @Model.MaDonHang</p>
+                <p><strong>Người nhận hàng:</strong> @Model.TenNguoiNhan</p>
+                <p><strong>Số điện thoại:</strong> @Model.Sdt</p>
+                <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+                <p><strong>Ngày đặt:</strong> @Model.Ngaydat.ToString("dd/MM/yyyy")</p>
+                <p><strong>Ngày giao:</strong> @Model.Ngaygiao?.ToString("dd/MM/yyyy")</p>
+
+                @switch (Model.Tinhtranggiaohang)
+                {
+                    case "da huy":
+                        <p><strong>Trạng thái:</strong> Đã hủy</p>
+                        break;
+                    case "dang giao":
+                        <p><strong>Trạng thái:</strong> Đang giao hàng</p>
+                        break;
+                    case "chua giao":
+                        <p><strong>Trạng thái:</strong> Chưa giao hàng</p>
+                        break;
+                    case "giao thanh cong":
+                        <p><strong>Trạng thái:</strong> Giao hàng thành công</p>
+                        break;
+                    case "giao that bai":
+                        <p><strong>Trạng thái:</strong> Giao hàng thất bại</p>
+                        break;
+                    default:
+                        <p><strong>Trạng thái:</strong> Unknown</p>
+                        break;
+                }
+
+                <p><strong>Ghi chú:</strong> @Model.Ghichu</p>
+                <p><strong>Voucher:</strong> @Model.MaVoucher</p>
+                <p><strong>Tổng tiền:</strong> @Model.TongGia</p>
+            </div>
+            @if (ViewBag.cthd != null && ViewBag.cthd.Count > 0)
+            {
+                <div class="col-md-6">
+                    <h3>Chi tiết lịch sử:</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Ảnh</th>
+                                <th scope="col" class="text-center">Tên sản phẩm</th>
+                                <th scope="col" class="text-center">Số lượng</th>
+                                <th scope="col" class="text-center">Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.cthd)
+                            {
+                                <tr>
+                                    <td class="text-center"><img src="@ViewBag.anhSanPham[item.MaSp]" alt="Hình ảnh sản phẩm" style="width: 150px; height: 150px" /></td>
+                                    <td class="text-center">@ViewBag.tenSanPham[item.MaSp]</td>
+                                    <td class="text-center">@item.Soluong</td>
+                                    <td class="text-center">@item.Dongia</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<p>
+    <a asp-action="LichSuMuaHang" class="btn btn-primary">Trở về trang quản lý</a>
+    @if (Model.Tinhtranggiaohang == "giao thanh cong" || Model.Tinhtranggiaohang == "da huy")
+    {
+        <a asp-action="MuaLai" asp-controller="GioHang" asp-route-id="@Model.MaDonHang" class="btn btn-success">Mua lại</a>
+    }
+</p>
